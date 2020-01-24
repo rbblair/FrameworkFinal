@@ -1,0 +1,486 @@
+Index: src/main/java/FrameworkBasedPrograming/controller/DepartmentControllerClass.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/controller/DepartmentControllerClass.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/controller/DepartmentControllerClass.java	(date 1579174627873)
+@@ -24,6 +24,14 @@
+         return departmentSearchService.queryDepartmentById(dep_no);
+     }
+ 
++    @RequestMapping(value = "/departmentName", method = RequestMethod.GET)
++    public Collection<Departments> getDepartmenstByName(
++            @RequestParam(value = "departmentName") String dep_name
++    )
++    {
++        return departmentSearchService.queryDepartmentByName(dep_name);
++    }
++
+     @RequestMapping(value = "/add", method = RequestMethod.PUT)
+     public void addDepartment(
+             @RequestBody(required = true) Departments department
+Index: src/main/java/FrameworkBasedPrograming/model/Titles.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/model/Titles.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/model/Titles.java	(date 1579176837893)
+@@ -5,13 +5,13 @@
+ 
+ @Entity
+ public class Titles {
+-    @Id
+     @Column(name="emp_no", nullable = false)
+     private Long empNo;
+ 
+     @Column(name="title", nullable = false)
+     private String title;
+ 
++    @Id
+     @Column(name="from_date", nullable = false)
+     private Timestamp fromDate;
+ 
+Index: src/main/java/WebConfiguration.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/WebConfiguration.java	(date 1579172285000)
++++ src/main/java/WebConfiguration.java	(date 1579178315011)
+@@ -1,6 +1,7 @@
++import FrameworkBasedPrograming.dao.DepartmentsRepository;
+ import FrameworkBasedPrograming.dao.EmployeeRepository;
+-import FrameworkBasedPrograming.service.EmployeeSearchService;
+-import FrameworkBasedPrograming.service.EmployeeSearchServiceImplementation;
++import FrameworkBasedPrograming.dao.SalariesRepository;
++import FrameworkBasedPrograming.service.*;
+ import org.springframework.boot.SpringBootConfiguration;
+ import org.springframework.context.annotation.Bean;
+ 
+@@ -11,4 +12,14 @@
+     public EmployeeSearchService employeeSearchService(EmployeeRepository employeeRepository) {
+         return new EmployeeSearchServiceImplementation(employeeRepository);
+     }
++
++    @Bean
++    public DepartmentSearchService departmentSearchService(DepartmentsRepository departmentsRepository) {
++        return new DepartmentSearchServiceImplementation(departmentsRepository);
++    }
++
++    @Bean
++    public SalariesSearchService salariesSearchService(SalariesRepository salariesRepository) {
++        return new SalariesSearchServiceImplementation(salariesRepository);
++    }
+ }
+Index: src/main/java/FrameworkBasedPrograming/model/Salaries.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/model/Salaries.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/model/Salaries.java	(date 1579176475839)
+@@ -5,13 +5,13 @@
+ 
+ @Entity
+ public class Salaries {
+-    @Id
+     @Column(name="emp_no", nullable = false)
+     private long empNo;
+ 
+     @Column(name="salary", nullable = false)
+     private long salary;
+ 
++    @Id
+     @Column(name="from_date", nullable = false)
+     private Timestamp fromDate;
+ 
+Index: src/main/java/FrameworkBasedPrograming/dao/SalariesRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/dao/SalariesRepository.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/dao/SalariesRepository.java	(date 1579175861463)
+@@ -3,6 +3,11 @@
+ import FrameworkBasedPrograming.model.Salaries;
+ import org.springframework.data.repository.CrudRepository;
+ 
++import java.sql.Timestamp;
++import java.util.Collection;
++
+ public interface SalariesRepository extends CrudRepository<Salaries, Long> {
+-
++    Collection<Salaries> findAllByEmpNo(long EmpNo);
++    Collection<Salaries> findAllByFromDateAndToDate(Timestamp from_date, Timestamp to_date);
++    Collection<Salaries> findAllByEmpNoAndFromDateAndToDate(long EmpNo, Timestamp from_date, Timestamp to_date);
+ }
+\ No newline at end of file
+Index: src/main/java/FrameworkBasedPrograming/model/Departments.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/model/Departments.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/model/Departments.java	(date 1579173517012)
+@@ -7,8 +7,8 @@
+ @Entity
+ public class Departments {
+     @Id
+-    @GeneratedValue(generator="system-uuid")
+-    @GenericGenerator(name="system-uuid", strategy = "uuid")
++    //@GeneratedValue(generator="system-uuid")
++    //@GenericGenerator(name="system-uuid", strategy = "uuid")
+     @Column(name = "dept_no", nullable = false)
+     private String deptNo;
+ 
+Index: src/main/java/FrameworkBasedPrograming/service/SalariesSearchService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/service/SalariesSearchService.java	(date 1579176475843)
++++ src/main/java/FrameworkBasedPrograming/service/SalariesSearchService.java	(date 1579176475843)
+@@ -0,0 +1,15 @@
++package FrameworkBasedPrograming.service;
++
++import FrameworkBasedPrograming.model.Salaries;
++
++import java.sql.Timestamp;
++import java.util.Collection;
++
++public interface SalariesSearchService {
++    void addSalary(Salaries salary);
++    void updateSalary(Salaries salary);
++    void deleteSalary(long emp_no, Timestamp from_date);
++    Collection<Salaries> getAllSalariesByEmpNo(long emp_no);
++    Collection<Salaries> getAllSalariesBetweenDates(Timestamp from_date, Timestamp to_date);
++    Collection<Salaries> getAllSalariesByEmpNoBetweenDates(long emp_no, Timestamp from_date, Timestamp to_date);
++}
+Index: src/main/java/FrameworkBasedPrograming/dao/DepartmentsRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/dao/DepartmentsRepository.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/dao/DepartmentsRepository.java	(date 1579174627863)
+@@ -4,10 +4,13 @@
+ import org.springframework.data.repository.CrudRepository;
+ 
+ import javax.transaction.Transactional;
++import java.util.Collection;
+ 
+ public interface DepartmentsRepository extends CrudRepository<Departments, Long> {
+     Departments findByDeptNo(String dept_no);
+ 
+     @Transactional
+     void deleteByDeptNo(String dept_no);
++
++    Collection<Departments> findAllByDeptName(String dept_name);
+ }
+Index: src/main/java/FrameworkBasedPrograming/service/SalariesSearchServiceImplementation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/service/SalariesSearchServiceImplementation.java	(date 1579176475848)
++++ src/main/java/FrameworkBasedPrograming/service/SalariesSearchServiceImplementation.java	(date 1579176475848)
+@@ -0,0 +1,45 @@
++package FrameworkBasedPrograming.service;
++
++import FrameworkBasedPrograming.dao.SalariesRepository;
++import FrameworkBasedPrograming.model.Salaries;
++
++import java.sql.Timestamp;
++import java.util.Collection;
++
++public class SalariesSearchServiceImplementation implements SalariesSearchService {
++    private SalariesRepository salariesRepository;
++
++    public SalariesSearchServiceImplementation(SalariesRepository salariesRepository){
++        this.salariesRepository = salariesRepository;
++    }
++
++    @Override
++    public void addSalary(Salaries salary) {
++
++    }
++
++    @Override
++    public void updateSalary(Salaries salary) {
++
++    }
++
++    @Override
++    public void deleteSalary(long emp_no, Timestamp from_date) {
++
++    }
++
++    @Override
++    public Collection<Salaries> getAllSalariesByEmpNo(long emp_no) {
++        return salariesRepository.findAllByEmpNo(emp_no);
++    }
++
++    @Override
++    public Collection<Salaries> getAllSalariesBetweenDates(Timestamp from_date, Timestamp to_date) {
++        return salariesRepository.findAllByFromDateAndToDate(from_date, to_date);
++    }
++
++    @Override
++    public Collection<Salaries> getAllSalariesByEmpNoBetweenDates(long emp_no, Timestamp from_date, Timestamp to_date) {
++        return salariesRepository.findAllByEmpNoAndFromDateAndToDate(emp_no, from_date, to_date);
++    }
++}
+Index: src/main/java/FrameworkBasedPrograming/dao/EmployeeRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/dao/EmployeeRepository.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/dao/EmployeeRepository.java	(date 1579176722762)
+@@ -4,6 +4,8 @@
+ import org.springframework.data.repository.CrudRepository;
+ 
+ import javax.transaction.Transactional;
++import java.sql.Timestamp;
++import java.util.Collection;
+ 
+ public interface EmployeeRepository extends CrudRepository<Employees, Long> {
+     //Optional<Employees> findByEmp_no(long id);
+@@ -11,4 +13,13 @@
+ 
+     @Transactional
+     void deleteByEmpNo(long emp_no);
++
++    Collection<Employees> findAllByFirstName(String first_name);
++
++    Collection<Employees> findAllByLastName(String last_name);
++
++    Collection<Employees> findAllByFirstNameAndLastName(String first_name, String last_name);
++
++    Collection<Employees> findAllByHireDate(Timestamp hire_date);
++
+ }
+Index: src/main/java/FrameworkBasedPrograming/service/EmployeeSearchService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/service/EmployeeSearchService.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/service/EmployeeSearchService.java	(date 1579176269088)
+@@ -3,6 +3,7 @@
+ import FrameworkBasedPrograming.model.Employees;
+ import com.sun.xml.bind.v2.model.core.ID;
+ 
++import java.sql.Timestamp;
+ import java.util.Collection;
+ import java.util.Optional;
+ 
+@@ -15,4 +16,12 @@
+ 
+     void deleteEmployee(long id);
+ 
++    public Collection<Employees> listEmployeesByFirstName(String first_name);
++
++    public Collection<Employees> listEmployeesByLastName(String last_name);
++
++    public Collection<Employees> listEmployeesByFullName(String first_name, String last_name);
++
++    public Collection<Employees> listEmployeesByHireDate(Timestamp hire_date);
++
+ }
+Index: src/main/java/FrameworkBasedPrograming/service/DepartmentSearchService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/service/DepartmentSearchService.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/service/DepartmentSearchService.java	(date 1579173974065)
+@@ -9,6 +9,8 @@
+ 
+     public Departments queryDepartmentById(String id);
+ 
++    public Collection<Departments> queryDepartmentByName(String depName);
++
+     void addDepartment(Departments departments);
+ 
+     void updateDepartment(Departments departments);
+Index: src/main/java/FrameworkBasedPrograming/controller/SalariesControllerClass.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/controller/SalariesControllerClass.java	(date 1579177736192)
++++ src/main/java/FrameworkBasedPrograming/controller/SalariesControllerClass.java	(date 1579177736192)
+@@ -0,0 +1,48 @@
++package FrameworkBasedPrograming.controller;
++
++import FrameworkBasedPrograming.model.Salaries;
++import FrameworkBasedPrograming.service.SalariesSearchService;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RequestMethod;
++import org.springframework.web.bind.annotation.RequestParam;
++import org.springframework.web.bind.annotation.RestController;
++
++import java.sql.Timestamp;
++import java.util.Collection;
++
++@RestController
++@RequestMapping(value = {"/salaries"})
++public class SalariesControllerClass {
++    @Autowired
++    private SalariesSearchService salariesSearchService;
++
++    @RequestMapping(value = "/empSalaries", method = RequestMethod.GET)
++    public Collection<Salaries> getSalariesByEmpNo(
++            @RequestParam(value = "empNo") long emp_no
++    )
++    {
++        return salariesSearchService.getAllSalariesByEmpNo(emp_no);
++    }
++
++    @RequestMapping(value = "/salariesBetweenDates")
++    public Collection<Salaries> getSalariesBetweenDates(
++            @RequestParam(value = "fromDate")Timestamp from_date,
++            @RequestParam(value = "toDate") Timestamp to_date
++    )
++    {
++        return salariesSearchService.getAllSalariesBetweenDates(from_date, to_date);
++    }
++
++    @RequestMapping(value = "/salariesBetweenDatesOfEmployee")
++    public Collection<Salaries> getSalariesBetweenDatesEmpNo(
++            @RequestParam(value = "fromDate")Timestamp from_date,
++            @RequestParam(value = "toDate") Timestamp to_date,
++            @RequestParam(value = "empNo") long id
++    )
++    {
++        return salariesSearchService.getAllSalariesByEmpNoBetweenDates(id, from_date, to_date);
++    }
++
++
++}
+Index: src/main/java/FrameworkBasedPrograming/service/EmployeeSearchServiceImplementation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/service/EmployeeSearchServiceImplementation.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/service/EmployeeSearchServiceImplementation.java	(date 1579176722767)
+@@ -6,6 +6,7 @@
+ import com.sun.xml.bind.v2.model.core.ID;
+ import org.springframework.stereotype.Service;
+ 
++import java.sql.Timestamp;
+ import java.util.Collection;
+ import java.util.Optional;
+ 
+@@ -52,4 +53,24 @@
+         System.out.println(employeeRepository.findByEmpNo(id));
+         employeeRepository.deleteByEmpNo(id);
+     }
++
++    @Override
++    public Collection<Employees> listEmployeesByFirstName(String first_name) {
++        return employeeRepository.findAllByFirstName(first_name);
++    }
++
++    @Override
++    public Collection<Employees> listEmployeesByLastName(String last_name) {
++        return employeeRepository.findAllByLastName(last_name);
++    }
++
++    @Override
++    public Collection<Employees> listEmployeesByFullName(String first_name, String last_name) {
++        return employeeRepository.findAllByFirstNameAndLastName(first_name, last_name);
++    }
++
++    @Override
++    public Collection<Employees> listEmployeesByHireDate(Timestamp hire_date) {
++        return employeeRepository.findAllByHireDate(hire_date);
++    }
+ }
+Index: src/main/java/FrameworkBasedPrograming/controller/EmployeesControllerClass.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/controller/EmployeesControllerClass.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/controller/EmployeesControllerClass.java	(date 1579176269095)
+@@ -6,6 +6,7 @@
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.web.bind.annotation.*;
+ 
++import java.sql.Timestamp;
+ import java.util.Collection;
+ import java.util.Optional;
+ 
+@@ -19,6 +20,39 @@
+     @RequestMapping(value="/all", method = RequestMethod.GET)
+     public Collection<Employees> fetchAllEmployees() { return employeeSearchService.listEmployees(); }
+ 
++    @RequestMapping(value = "/employeeFirstName", method = RequestMethod.GET)
++    public Collection<Employees> getEmployeesByFirstName(
++            @RequestParam(value = "employeeFirstName") String first_name
++    )
++    {
++        return employeeSearchService.listEmployeesByFirstName(first_name);
++    }
++
++    @RequestMapping(value = "/employeeLastName", method = RequestMethod.GET)
++    public Collection<Employees> getEmployeesByLastName(
++            @RequestParam(value = "employeeLastName") String last_name
++    )
++    {
++        return employeeSearchService.listEmployeesByLastName(last_name);
++    }
++
++    @RequestMapping(value = "/employeeFullName", method = RequestMethod.GET)
++    public Collection<Employees> getEmployeesByFullName(
++            @RequestParam(value = "employeeFirstName") String first_name,
++            @RequestParam(value = "employeeLastName") String last_name
++    )
++    {
++        return employeeSearchService.listEmployeesByFullName(first_name, last_name);
++    }
++
++    @RequestMapping(value = "/employeeHireDate", method = RequestMethod.GET)
++    public Collection<Employees> getEmployeesByHireDate(
++            @RequestParam(value = "employeeHireDate") Timestamp hire_date
++    )
++    {
++        return employeeSearchService.listEmployeesByHireDate(hire_date);
++    }
++
+     @RequestMapping(value = "/employeeId", method = RequestMethod.GET)
+     public Employees getEmployeeById(
+             @RequestParam(value = "employeeId") long id
+Index: src/main/java/FrameworkBasedPrograming/service/DepartmentSearchServiceImplementation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/FrameworkBasedPrograming/service/DepartmentSearchServiceImplementation.java	(date 1579172285000)
++++ src/main/java/FrameworkBasedPrograming/service/DepartmentSearchServiceImplementation.java	(date 1579174627868)
+@@ -5,6 +5,7 @@
+ import org.springframework.stereotype.Service;
+ 
+ import java.util.Collection;
++import java.util.Iterator;
+ 
+ @Service
+ public class DepartmentSearchServiceImplementation implements DepartmentSearchService {
+@@ -24,6 +25,11 @@
+         return departmentsRepository.findByDeptNo(id);
+     }
+ 
++    @Override
++    public Collection<Departments> queryDepartmentByName(String depName) {
++        return (Collection<Departments>) departmentsRepository.findAllByDeptName(depName);
++    }
++
+     @Override
+     public void addDepartment(Departments departments) {
+         departmentsRepository.save(departments);
