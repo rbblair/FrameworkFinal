@@ -1,21 +1,21 @@
-package FrameworkBasedPrograming.model;
+package FrameworkFinal.FrameworkBasedPrograming.model;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 public class Salaries {
-    @Column(name="emp_no", nullable = false)
+    @Column(name = "emp_no", nullable = false)
     private long empNo;
 
-    @Column(name="salary", nullable = false)
+    @Column(name = "salary", nullable = false)
     private long salary;
 
     @Id
-    @Column(name="from_date", nullable = false)
+    @Column(name = "from_date", nullable = false)
     private Date fromDate;
 
-    @Column(name="to_date", nullable = false)
+    @Column(name = "to_date", nullable = false)
     private Date toDate;
 
     public long getEmpNo() {

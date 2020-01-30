@@ -1,8 +1,8 @@
-package FrameworkBasedPrograming.service.serviceImpl;
+package FrameworkFinal.FrameworkBasedPrograming.service.serviceImpl;
 
-import FrameworkBasedPrograming.dao.TitlesRepository;
-import FrameworkBasedPrograming.model.Titles;
-import FrameworkBasedPrograming.service.TitlesSearchService;
+import FrameworkFinal.FrameworkBasedPrograming.dao.TitlesRepository;
+import FrameworkFinal.FrameworkBasedPrograming.model.Titles;
+import FrameworkFinal.FrameworkBasedPrograming.service.TitlesSearchService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -12,7 +12,7 @@ import java.util.Collection;
 public class TitlesSearchServiceImplementation implements TitlesSearchService {
     private TitlesRepository titlesRepository;
 
-    public TitlesSearchServiceImplementation(TitlesRepository titlesRepository){
+    public TitlesSearchServiceImplementation(TitlesRepository titlesRepository) {
         this.titlesRepository = titlesRepository;
     }
 

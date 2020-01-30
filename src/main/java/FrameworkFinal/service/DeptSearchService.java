@@ -1,10 +1,10 @@
-package FrameworkBasedPrograming.service;
+package FrameworkFinal.FrameworkBasedPrograming.service;
 
-import FrameworkBasedPrograming.model.Departments;
+import FrameworkFinal.FrameworkBasedPrograming.model.Departments;
 
 import java.util.Collection;
 
-public interface DepartmentSearchService {
+public interface DeptSearchService {
     public Collection<Departments> listDepartments();
 
     public Departments queryDepartmentById(String id);

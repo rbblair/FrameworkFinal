@@ -1,4 +1,4 @@
-package FrameworkBasedPrograming;
+package FrameworkFinal.FrameworkBasedPrograming;
 
 import static org.junit.Assert.assertTrue;
 

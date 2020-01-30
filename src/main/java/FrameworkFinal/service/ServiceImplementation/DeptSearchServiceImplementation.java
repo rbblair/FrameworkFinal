@@ -1,18 +1,17 @@
-package FrameworkBasedPrograming.service.serviceImpl;
+package FrameworkFinal.service.ServiceImplementation;
 
-import FrameworkBasedPrograming.dao.DepartmentsRepository;
-import FrameworkBasedPrograming.model.Departments;
-import FrameworkBasedPrograming.service.DepartmentSearchService;
+import FrameworkFinal.FrameworkBasedPrograming.dao.DepartmentsRepository;
+import FrameworkFinal.FrameworkBasedPrograming.model.Departments;
+import FrameworkFinal.FrameworkBasedPrograming.service.DeptSearchService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 @Service
-public class DepartmentSearchServiceImplementation implements DepartmentSearchService {
+public class DeptSearchServiceImplementation implements DeptSearchService {
     private DepartmentsRepository departmentsRepository;
 
-    public DepartmentSearchServiceImplementation(DepartmentsRepository departmentsRepository) {
+    public DeptSearchServiceImplementation(DepartmentsRepository departmentsRepository) {
         this.departmentsRepository = departmentsRepository;
     }
 

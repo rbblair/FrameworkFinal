@@ -1,6 +1,6 @@
-package FrameworkBasedPrograming.dao;
+package FrameworkFinal.dao;
 
-import FrameworkBasedPrograming.model.Employees;
+import FrameworkFinal.model.Employees;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

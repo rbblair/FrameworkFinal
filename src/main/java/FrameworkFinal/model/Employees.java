@@ -1,4 +1,7 @@
-package FrameworkBasedPrograming.model;
+package FrameworkFinal.model;
+import FrameworkFinal.FrameworkBasedPrograming.model.Manager;
+import FrameworkFinal.FrameworkBasedPrograming.model.Salaries;
+import FrameworkFinal.FrameworkBasedPrograming.model.Titles;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -17,35 +20,35 @@ public class Employees {
     @Column(name = "emp_no", nullable = false)
     private Long empNo;
 
-    @Column(name="first_name", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name="last_name", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name="birth_date", nullable = false)
+    @Column(name = "birth_date", nullable = false)
     private Date birthDate;
 
-    @Column(name="hire_date", nullable = false)
+    @Column(name = "hire_date", nullable = false)
     private Date hireDate;
 
-    @Column(name="gender", nullable = false)
+    @Column(name = "gender", nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    public Collection<Dept_manager> getDeptManagers() {
+    public Collection<Manager> getDeptManagers() {
         return deptManagers;
     }
 
-    public void setDeptManagers(Collection<Dept_manager> deptManagers) {
+    public void setDeptManagers(Collection<Manager> deptManagers) {
         this.deptManagers = deptManagers;
     }
 
-    public Collection<Titles> getTitles() {
+    public Collection<FrameworkFinal.FrameworkBasedPrograming.model.Titles> getTitles() {
         return titles;
     }
 
-    public Collection<Salaries> getSalaries() {
+    public Collection<FrameworkFinal.FrameworkBasedPrograming.model.Salaries> getSalaries() {
         return salaries;
     }
 
@@ -61,26 +64,26 @@ public class Employees {
                 ", titles=" + titles +
                 ", salaries=" + salaries +
                 ", dept_manager=" + deptManagers +
-                ", dept_emp=" + deptEmp +
+                ", Emp=" + deptEmp +
                 '}';
     }
 
-    public void setTitles(Collection<Titles> titles) {
+    public void setTitles(Collection<FrameworkFinal.FrameworkBasedPrograming.model.Titles> titles) {
         this.titles = titles;
     }
 
-    public void setSalaries(Collection<Salaries> salaries) {
+    public void setSalaries(Collection<FrameworkFinal.FrameworkBasedPrograming.model.Salaries> salaries) {
         this.salaries = salaries;
     }
 
     @OneToMany(
-        orphanRemoval = true
+            orphanRemoval = true
     )
     @JoinColumn(name = "emp_no")
     private Collection<Titles> titles;
 
     @OneToMany(
-        orphanRemoval = true
+            orphanRemoval = true
     )
     @JoinColumn(name = "emp_no")
     private Collection<Salaries> salaries;
@@ -89,19 +92,19 @@ public class Employees {
             orphanRemoval = true
     )
     @JoinColumn(name = "emp_no")
-    private Collection<Dept_manager> deptManagers;
+    private Collection<Manager> deptManagers;
 
     @OneToMany(
             orphanRemoval = true
     )
     @JoinColumn(name = "emp_no")
-    private Collection<Dept_emp> deptEmp;
+    private Collection<FrameworkFinal.FrameworkBasedPrograming.model.Emp> deptEmp;
 
-    public Collection<Dept_emp> getDeptEmp() {
+    public Collection<FrameworkFinal.FrameworkBasedPrograming.model.Emp> getDeptEmp() {
         return deptEmp;
     }
 
-    public void setDeptEmp(Collection<Dept_emp> deptEmp) {
+    public void setDeptEmp(Collection<FrameworkFinal.FrameworkBasedPrograming.model.Emp> deptEmp) {
         this.deptEmp = deptEmp;
     }
 

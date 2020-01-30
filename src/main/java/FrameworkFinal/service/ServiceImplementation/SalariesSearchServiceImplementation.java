@@ -1,8 +1,8 @@
-package FrameworkBasedPrograming.service.serviceImpl;
+package FrameworkFinal.FrameworkBasedPrograming.service.serviceImpl;
 
-import FrameworkBasedPrograming.dao.SalariesRepository;
-import FrameworkBasedPrograming.model.Salaries;
-import FrameworkBasedPrograming.service.SalariesSearchService;
+import FrameworkFinal.FrameworkBasedPrograming.dao.SalariesRepository;
+import FrameworkFinal.FrameworkBasedPrograming.model.Salaries;
+import FrameworkFinal.FrameworkBasedPrograming.service.SalariesSearchService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -12,7 +12,7 @@ import java.util.Collection;
 public class SalariesSearchServiceImplementation implements SalariesSearchService {
     private SalariesRepository salariesRepository;
 
-    public SalariesSearchServiceImplementation(SalariesRepository salariesRepository){
+    public SalariesSearchServiceImplementation(SalariesRepository salariesRepository) {
         this.salariesRepository = salariesRepository;
     }
 

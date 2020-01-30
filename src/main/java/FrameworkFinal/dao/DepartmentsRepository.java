@@ -1,6 +1,6 @@
-package FrameworkBasedPrograming.dao;
+package FrameworkFinal.FrameworkBasedPrograming.dao;
 
-import FrameworkBasedPrograming.model.Departments;
+import FrameworkFinal.FrameworkBasedPrograming.model.Departments;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;

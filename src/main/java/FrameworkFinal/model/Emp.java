@@ -1,4 +1,4 @@
-package FrameworkBasedPrograming.model;
+package FrameworkFinal.FrameworkBasedPrograming.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,24 +6,24 @@ import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity
-public class Dept_emp {
+public class Emp {
     @Id
-    @Column(name="emp_no", nullable = false)
+    @Column(name = "emp_no", nullable = false)
     private Long empNo;
 
-    @Column(name="dept_no", nullable = false)
+    @Column(name = "dept_no", nullable = false)
     private String deptNo;
 
-    @Column(name="from_date", nullable = false)
+    @Column(name = "from_date", nullable = false)
     private Date fromDate;
 
-    @Column(name="to_date", nullable = false)
+    @Column(name = "to_date", nullable = false)
     private Date toDate;
 
-    public Dept_emp() {
+    public Emp() {
     }
 
-    public Dept_emp(Long empNo, String dept_no, Date fromDate, Date toDate) {
+    public Emp(Long empNo, String dept_no, Date fromDate, Date toDate) {
         this.empNo = empNo;
         this.deptNo = dept_no;
         this.fromDate = fromDate;

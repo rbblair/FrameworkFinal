@@ -1,6 +1,6 @@
-import FrameworkBasedPrograming.dao.*;
-import FrameworkBasedPrograming.service.*;
-import FrameworkBasedPrograming.service.serviceImpl.*;
+import FrameworkFinal.dao.*;
+import FrameworkFinal.service.*;
+import FrameworkFinal.service.ServiceImplementation.*;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 
@@ -8,32 +8,32 @@ import org.springframework.context.annotation.Bean;
 public class WebConfiguration {
 
     @Bean
-    public EmployeeSearchService employeeSearchService(EmployeeRepository employeeRepository) {
+    public EmployeeSearchService EmployeeSearchService(EmployeeRepository employeeRepository) {
         return new EmployeeSearchServiceImplementation(employeeRepository);
     }
 
     @Bean
-    public DepartmentSearchService departmentSearchService(DepartmentsRepository departmentsRepository) {
-        return new DepartmentSearchServiceImplementation(departmentsRepository);
+    public FrameworkFinal.FrameworkBasedPrograming.service.DeptSearchService DeptSearchService(FrameworkFinal.FrameworkBasedPrograming.dao.DepartmentsRepository departmentsRepository) {
+        return new DeptSearchServiceImplementation(departmentsRepository);
     }
 
     @Bean
-    public SalariesSearchService salariesSearchService(SalariesRepository salariesRepository) {
-        return new SalariesSearchServiceImplementation(salariesRepository);
+    public FrameworkFinal.FrameworkBasedPrograming.service.SalariesSearchService SalariesSearchService(FrameworkFinal.FrameworkBasedPrograming.dao.SalariesRepository salariesRepository) {
+        return new FrameworkFinal.FrameworkBasedPrograming.service.serviceImpl.SalariesSearchServiceImplementation(salariesRepository);
     }
 
     @Bean
-    public TitlesSearchService titlesSearchService(TitlesRepository titlesRepository) {
-        return new TitlesSearchServiceImplementation(titlesRepository);
+    public FrameworkFinal.FrameworkBasedPrograming.service.TitlesSearchService TitlesSearchService(FrameworkFinal.FrameworkBasedPrograming.dao.TitlesRepository titlesRepository) {
+        return new FrameworkFinal.FrameworkBasedPrograming.service.serviceImpl.TitlesSearchServiceImplementation(titlesRepository);
     }
 
     @Bean
-    public Dept_managerSearchService dept_managerSearchService(Dept_managerRepository dept_managerRepository) {
-        return new Dept_managerSearchServiceImplementation(dept_managerRepository);
+    public ManagerSearchService ManagerSearchService(FrameworkFinal.FrameworkBasedPrograming.dao.ManagerRepository ManagerRepository) {
+        return new ManagerSearchServiceImplementation(ManagerRepository);
     }
 
     @Bean
-    public Dept_empSearchService deptEmpSearchService(Dept_empRepository deptEmpRepository) {
-        return  new Dept_empSearchServiceImplementation(deptEmpRepository);
+    public DeptEmpSearchService DeptEmpSearchService(FrameworkFinal.FrameworkBasedPrograming.dao.EmpRepository deptEmpRepository) {
+        return  new DeptEmpSearchServiceImplementation(deptEmpRepository);
     }
 }

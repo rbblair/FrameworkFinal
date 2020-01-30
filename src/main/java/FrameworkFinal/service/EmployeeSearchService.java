@@ -1,15 +1,15 @@
-package FrameworkBasedPrograming.service;
+package FrameworkFinal.service;
 
-import FrameworkBasedPrograming.model.Employees;
-import com.sun.xml.bind.v2.model.core.ID;
+import FrameworkFinal.model.Employees;
 
 import java.sql.Date;
 import java.util.Collection;
-import java.util.Optional;
 
 public interface EmployeeSearchService {
     public Collection<Employees> listEmployees();
+
     public Employees queryEmployeeById(long id);
+
     void addEmployee(Employees employees);
 
     void updateEmployee(Employees employees);

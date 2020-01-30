@@ -1,4 +1,4 @@
-package FrameworkBasedPrograming.model;
+package FrameworkFinal.FrameworkBasedPrograming.model;
 
 public class OldNewSalaries {
     private Salaries oldSalary;

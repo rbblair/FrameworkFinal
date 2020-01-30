@@ -1,10 +1,11 @@
-package FrameworkBasedPrograming.model;
+package FrameworkFinal.model;
+import FrameworkFinal.FrameworkBasedPrograming.model.Emp;
 
 public class OldNewDeptEmp {
-    private Dept_emp OldDeptEmp;
-    private Dept_emp NewDeptEmp;
+    private FrameworkFinal.FrameworkBasedPrograming.model.Emp OldDeptEmp;
+    private Emp NewDeptEmp;
 
-    public OldNewDeptEmp(Dept_emp oldDeptEmp, Dept_emp newDeptEmp) {
+    public OldNewDeptEmp(Emp oldDeptEmp, Emp newDeptEmp) {
         OldDeptEmp = oldDeptEmp;
         NewDeptEmp = newDeptEmp;
     }
@@ -20,19 +21,19 @@ public class OldNewDeptEmp {
                 '}';
     }
 
-    public Dept_emp getOldDeptEmp() {
+    public Emp getOldDeptEmp() {
         return OldDeptEmp;
     }
 
-    public void setOldDeptEmp(Dept_emp oldDeptEmp) {
+    public void setOldDeptEmp(Emp oldDeptEmp) {
         OldDeptEmp = oldDeptEmp;
     }
 
-    public Dept_emp getNewDeptEmp() {
+    public Emp getNewDeptEmp() {
         return NewDeptEmp;
     }
 
-    public void setNewDeptEmp(Dept_emp newDeptEmp) {
+    public void setNewDeptEmp(Emp newDeptEmp) {
         NewDeptEmp = newDeptEmp;
     }
 }

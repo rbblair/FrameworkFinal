@@ -1,21 +1,21 @@
-package FrameworkBasedPrograming.service;
+package FrameworkFinal.service;
 
-import FrameworkBasedPrograming.model.Dept_manager;
-import FrameworkBasedPrograming.model.OldNewDeptManager;
+import FrameworkFinal.FrameworkBasedPrograming.model.Manager;
+import FrameworkFinal.model.OldNewDeptManager;
 
 import java.sql.Date;
 import java.util.Collection;
 
-public interface Dept_managerSearchService {
-    public Collection<Dept_manager> listDepartmentManagers();
+public interface ManagerSearchService {
+    public Collection<Manager> listDepartmentManagers();
 
-    public Collection<Dept_manager> listDepartmentManagersByDeptNo(String Dept_no);
+    public Collection<Manager> listDepartmentManagersByDeptNo(String Dept_no);
 
-    public Dept_manager getDepartmentManagerByFromDateAndToDateAndDept_no(Date from_date, Date to_date, String dept_no);
+    public Manager getDepartmentManagerByFromDateAndToDateAndDept_no(Date from_date, Date to_date, String dept_no);
 
-    void addDeptManager(Dept_manager dept_manager);
+    void addDeptManager(Manager Manager);
 
     void updateDeptManager(OldNewDeptManager oldNewDeptManager);
 
-    void deleteDepartmentManager(Dept_manager dept_manager);
+    void deleteDepartmentManager(Manager Manager);
 }

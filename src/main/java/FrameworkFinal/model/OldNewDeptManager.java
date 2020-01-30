@@ -1,13 +1,14 @@
-package FrameworkBasedPrograming.model;
+package FrameworkFinal.model;
+import FrameworkFinal.FrameworkBasedPrograming.model.Manager;
 
 public class OldNewDeptManager {
-    private Dept_manager oldDeptManager;
-    private Dept_manager newDeptManager;
+    private Manager oldDeptManager;
+    private Manager newDeptManager;
 
     public OldNewDeptManager() {
     }
 
-    public OldNewDeptManager(Dept_manager oldDeptManager, Dept_manager newDeptManager) {
+    public OldNewDeptManager(Manager oldDeptManager, Manager newDeptManager) {
         this.oldDeptManager = oldDeptManager;
         this.newDeptManager = newDeptManager;
     }
@@ -20,19 +21,19 @@ public class OldNewDeptManager {
                 '}';
     }
 
-    public Dept_manager getOldDeptManager() {
+    public Manager getOldDeptManager() {
         return oldDeptManager;
     }
 
-    public void setOldDeptManager(Dept_manager oldDeptManager) {
+    public void setOldDeptManager(Manager oldDeptManager) {
         this.oldDeptManager = oldDeptManager;
     }
 
-    public Dept_manager getNewDeptManager() {
+    public Manager getNewDeptManager() {
         return newDeptManager;
     }
 
-    public void setNewDeptManager(Dept_manager newDeptManager) {
+    public void setNewDeptManager(Manager newDeptManager) {
         this.newDeptManager = newDeptManager;
     }
 }

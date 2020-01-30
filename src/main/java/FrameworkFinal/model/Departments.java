@@ -1,6 +1,4 @@
-package FrameworkBasedPrograming.model;
-
-import org.hibernate.annotations.GenericGenerator;
+package FrameworkFinal.FrameworkBasedPrograming.model;
 
 import javax.persistence.*;
 
@@ -12,7 +10,7 @@ public class Departments {
     @Column(name = "dept_no", nullable = false)
     private String deptNo;
 
-    @Column(name="dept_name", nullable = false)
+    @Column(name = "dept_name", nullable = false)
     private String deptName;
 
     public Departments() {

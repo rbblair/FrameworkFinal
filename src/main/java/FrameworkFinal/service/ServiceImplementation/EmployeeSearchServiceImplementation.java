@@ -1,24 +1,18 @@
-package FrameworkBasedPrograming.service.serviceImpl;
+package FrameworkFinal.service.ServiceImplementation;
 
-import FrameworkBasedPrograming.dao.DepartmentsRepository;
-import FrameworkBasedPrograming.dao.Dept_managerRepository;
-import FrameworkBasedPrograming.dao.EmployeeRepository;
-import FrameworkBasedPrograming.model.Departments;
-import FrameworkBasedPrograming.model.Employees;
-import FrameworkBasedPrograming.service.Dept_managerSearchService;
-import FrameworkBasedPrograming.service.EmployeeSearchService;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
-import com.sun.xml.bind.v2.model.core.ID;
+import FrameworkFinal.dao.EmployeeRepository;
+import FrameworkFinal.model.Employees;
+import FrameworkFinal.service.ManagerSearchService;
+import FrameworkFinal.service.EmployeeSearchService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.Collection;
-import java.util.Optional;
 
 @Service
 public class EmployeeSearchServiceImplementation implements EmployeeSearchService {
     private EmployeeRepository employeeRepository;
-    private Dept_managerSearchService dept_managerSearchService;
+    private ManagerSearchService dept_managerSearchService;
 
     public EmployeeSearchServiceImplementation(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
